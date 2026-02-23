@@ -144,7 +144,9 @@ func (ne *bizMonitorNodeExecutor) tryRetrievePeerCertificates(execCtx *NodeExecu
 		return nil, err
 	}
 
-	req.Header.Set("Host", domain)
+	if domain != "" {
+		req.Host = domain
+	}
 	req.Header.Set("User-Agent", app.AppUserAgent)
 	resp, err := client.Do(req)
 	if err != nil {
